@@ -108,8 +108,12 @@ Respond ONLY with a valid JSON object. No markdown, no backticks, no extra text.
   }
 });
 
-app.listen(PORT, () => {
-  const keySet = process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your-gemini-key-here';
-  console.log(`\n🎬 SceneSeeker running at http://localhost:${PORT}`);
-  console.log(`   Gemini key: ${keySet ? '✓ loaded' : '✗ NOT SET'}\n`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    const keySet = process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your-gemini-key-here';
+    console.log(`\n🎬 SceneSeeker running at http://localhost:${PORT}`);
+    console.log(`   Gemini key: ${keySet ? '✓ loaded' : '✗ NOT SET'}\n`);
+  });
+}
+
+export default app;
